@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+const bcrypt = require('bcryptjs');
 
 module.exports = {
   up: queryInterface => {
@@ -17,7 +17,5 @@ module.exports = {
     );
   },
 
-  down: queryInterface => {
-    return queryInterface.bulkDelete('users', null, {});
-  },
+  down: () => {},
 };
