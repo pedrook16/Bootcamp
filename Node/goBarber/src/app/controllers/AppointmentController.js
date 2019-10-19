@@ -6,7 +6,7 @@ import User from '../models/User';
 import File from '../models/File';
 import Notification from '../schemas/Notification';
 
-import CancellationMail from '../jobs/CancellationMail'
+import CancellationMail from '../jobs/CancellationMail';
 import Queue from '../../lib/Queue';
 
 class AppointmentController {
@@ -15,7 +15,7 @@ class AppointmentController {
     const appointment = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
-      attributes: ['id', 'date'],
+      attributes: ['id', 'date', 'past', 'cancelable'],
       limit: 20,
       offset: (page - 1) * 20,
       include: [
@@ -147,8 +147,8 @@ class AppointmentController {
     await appointment.save();
 
     await Queue.add(CancellationMail.key, {
-      appointment
-    })
+      appointment,
+    });
 
     return res.json(appointment);
   }
