@@ -15,15 +15,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      idade: {
+      age: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      weight: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      peso: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      altura: {
+      height: {
         type: Sequelize.STRING,
         allowNull: false,
       },

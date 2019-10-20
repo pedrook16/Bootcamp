@@ -7,7 +7,7 @@ class Plan extends Model {
         title: Sequelize.STRING,
         duration: {
           type: Sequelize.INTEGER,
-          validate: { min: 1, max: 6 }
+          validate: { min: 1, max: 6 },
         },
         price: Sequelize.FLOAT,
       },

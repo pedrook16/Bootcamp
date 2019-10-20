@@ -14,7 +14,7 @@ module.exports = {
 
       duration: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
 
       price: {
