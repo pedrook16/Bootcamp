@@ -1,10 +1,10 @@
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 import Plan from '../models/Plan';
 
 class PlanController {
   async index(req, res) {
     const plan = await Plan.findAll({
-      attributes: ['id', 'duration', 'price']
+      attributes: ['id', 'duration', 'price'],
     });
     return res.json(plan);
   }
@@ -13,7 +13,7 @@ class PlanController {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
       duration: Yup.number().required(),
-      price: Yup.number().required()
+      price: Yup.number().required(),
     });
 
     if (!(await schema.isValid(req.body))) {
