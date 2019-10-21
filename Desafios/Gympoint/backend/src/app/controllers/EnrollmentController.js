@@ -5,6 +5,9 @@ import Enrollment from '../models/Enrollment';
 import Plan from '../models/Plan';
 import Student from '../models/Student';
 
+import Queue from '../../lib/Queue';
+import Welcome from '../jobs/WelcomeMail';
+
 class EnrollmentController {
   async index(req, res) {
     const enrollment = await Enrollment.findAll({
@@ -74,6 +77,18 @@ class EnrollmentController {
       price,
       end_date,
     });
+
+    const { name, email } = await Student.findByPk(student_id);
+
+    await Queue.add(Welcome.key, {
+      name,
+      email,
+      start_date,
+      end_date,
+      planTitle: plan.title,
+      price,
+    });
+
     return res.json(enrollment);
   }
 }
