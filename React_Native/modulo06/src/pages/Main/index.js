@@ -19,8 +19,8 @@ export default class Main extends Component {
   }).isRequired
 
   state = {
-    newUser = '',
-    users = [],
+    newUser : '',
+    users : [],
     loading: false
   }
 
@@ -83,10 +83,10 @@ export default class Main extends Component {
             returnKeyLabel="send"
             onSubmitEditing={this.handleAddUser}
           />
-          <SubmitButton loading={loading} onPress={this.handleAddUser}>
+          {/* <SubmitButton loading={loading} onPress={this.handleAddUser}>
             {loading ?
-            <ActivityIndicator color="#fff" /> : <Icon name="add" size={20} color="#FFF"/>}
-          </SubmitButton>
+            <ActivityIndicator color="#fff" /> : <Icon name="add"  color="#FFF"/>}
+          </SubmitButton> */}
         </Form>
         <List
           data={users}

@@ -1,0 +1,46 @@
+html, body, #app {
+    height: 100%;
+    margin: 0;
+}
+
+#app {
+    display: flex;
+
+    /* Espaços entre as caixas */
+    /* justify-content: space-between; */
+
+    /* igual ao space-between, mas com espaços nos cantos */
+    /* justify-content: space-around; */
+
+    /* Para quebrar linha */
+    /* flex-wrap: wrap; */
+
+    /* Quando tem flex-wrap temos o align-content:center; para juntar mais de uma linha mesmas props do justify-content */
+    /* align-content: center; */
+
+
+}
+
+.box {
+    width: 100px;
+    height: 60px;
+    margin: 5px;
+
+    /* Para o container ocupar 100 da div mãe */
+    /* flex: 1; */
+}
+
+.red {
+    background: red;
+    order: 1;
+}
+
+.green {
+    background: green;
+    order: 2;
+}
+
+.blue {
+    background: blue;
+    order: 3;
+}
