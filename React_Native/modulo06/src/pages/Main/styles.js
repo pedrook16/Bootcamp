@@ -19,7 +19,7 @@ export const Input = styled.TextInput.attrs({
   background: #eee;
   border-radius: 4px;
   padding: 0 15px;
-  border: 1px solid #eee;
+  border: 1px solid ${props => props.error ? 'red' : '#eee'};
 `;
 export const SubmitButton = styled(RectButton)`
   justify-content:center;
@@ -29,7 +29,7 @@ export const SubmitButton = styled(RectButton)`
   margin-left: 10px;
   padding: 0 12px;
 
-  opacity: ${props => props.loading ? 0.7 : 1}
+  opacity: ${props => props.loading ? 0.7 : 1};
 `;
 
 export const List = styled.FlatList.attrs({
@@ -83,4 +83,15 @@ export const ProfileButtonText = styled.Text`
   font-weight: bold;
   color: #fff;
   text-transform: uppercase;
+`;
+
+
+export const Icon = styled.View`
+
+`;
+
+export const TextIcon = styled.Text`
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
 `;
