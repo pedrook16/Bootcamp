@@ -7,7 +7,7 @@ import api from '../../services/api'
 import { Container, Header, Avatar, Name, Bio, Stars, Starred,OwnerAvatar,
   Info,
   Title,
-  Author } from './styles';
+  Author, Loading } from './styles';
 
 export default class User extends Component {
 
@@ -24,22 +24,56 @@ export default class User extends Component {
 
   state = {
     stars: [],
-    loading: false
+    loading: false,
+    page: 1,
+    refreshing: false
   }
 
-  async componentDidMount() {
+  componentDidMount() {    
+    this.load()
+  }
+
+  load = async (page = 1) => {
     this.setState({ loading: true })
+
     const { navigation } = this.props
+    const { stars } = this.state
     const user = navigation.getParam('user')
 
-    const response = await api.get(`/users/${user.login}/starred`)
+    const response = await api.get(`/users/${user.login}/starred`, {
+      params: page
+    })
 
-    this.setState({ stars: response.data, loading: false })
+    this.setState({ 
+      stars: page >= 2 ? [...stars, ...response.data] : response.data,
+      page, 
+      loading: false,
+      refreshing: false 
+    })
   }
-  render() {
-    const { navigation } = this.props
-    const { stars, loading } = this.state
 
+  loadMore = () => {
+    const { page } = this.state
+
+    const next = page + 1
+
+    this.load(next)
+  }
+
+  refreshList = () => {
+    this.setState({ refreshing: true, stars: [] }, this.load)
+
+  }
+  
+  handleNavigate = repository => {
+    const { navigation } = this.props;
+
+    navigation.navigate('Repository', { repository });
+  }
+
+  render() {
+    const { navigation } = this.props    
+    const { stars, loading, refreshing } = this.state
     const user = navigation.getParam('user')
 
     return (
@@ -50,13 +84,19 @@ export default class User extends Component {
           <Bio>{user.bio}</Bio>
         </Header>
 
-        {loading ? <ActivityIndicator />
-         : (
+        {loading ? (
+          <ActivityIndicator />
+        ) : (
           <Stars
           data={stars}
+          onEndReachedThreshold={0.1}
+          onEndReached={this.loadMore}
+          onRefresh={this.refreshList}
+          refreshing={refreshing}
+          ListFooterComponent={loading && <Loading />} 
           keyExtractor={star => String(star.id)}
           renderItem={({ item }) => (
-            <Starred>
+            <Starred onPress={() => this.handleNavigate(item)}>
               <OwnerAvatar source={{ uri: item.owner.avatar_url }} />
               <Info>
                 <Title>{item.name}</Title>
