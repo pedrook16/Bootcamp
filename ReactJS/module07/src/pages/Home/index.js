@@ -1,95 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md'
+
+import api from '../../services/api'
+
+import { formatPrice } from '../../util/format'
 
 import { ProductList } from './styles';
 
-export default function Home() {
-  return (
-    <ProductList>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-olympikus-actual-masculino/20/D22-1319-120/D22-1319-120_zoom1.jpg" alt="itens"/>
-        <strong>Tênis Legal</strong>
-        <span>R$129.90</span>
+export default class Home extends Component {
+  state = {
+    products: []
+  }
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3            
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-olympikus-actual-masculino/20/D22-1319-120/D22-1319-120_zoom1.jpg" alt="itens"/>
-        <strong>Tênis Legal</strong>
-        <span>R$129.90</span>
+  async componentDidMount() {
+    const response = await api.get('products')
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3            
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-olympikus-actual-masculino/20/D22-1319-120/D22-1319-120_zoom1.jpg" alt="itens"/>
-        <strong>Tênis Legal</strong>
-        <span>R$129.90</span>
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price)
+    }))
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3            
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-olympikus-actual-masculino/20/D22-1319-120/D22-1319-120_zoom1.jpg" alt="itens"/>
-        <strong>Tênis Legal</strong>
-        <span>R$129.90</span>
+    this.setState({ products: data})
+  }
+  render() {
+    const { products } = this.state
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3            
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-olympikus-actual-masculino/20/D22-1319-120/D22-1319-120_zoom1.jpg" alt="itens"/>
-        <strong>Tênis Legal</strong>
-        <span>R$129.90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3            
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-olympikus-actual-masculino/20/D22-1319-120/D22-1319-120_zoom1.jpg" alt="itens"/>
-        <strong>Tênis Legal</strong>
-        <span>R$129.90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3            
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-      <li>
-        <img src="https://static.netshoes.com.br/produtos/tenis-olympikus-actual-masculino/20/D22-1319-120/D22-1319-120_zoom1.jpg" alt="itens"/>
-        <strong>Tênis Legal</strong>
-        <span>R$129.90</span>
-
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3            
-          </div>
-          <span>Adicionar ao carrinho</span>
-        </button>
-      </li>
-    </ProductList>
-  );
+    return (
+      <ProductList>
+        {products.map( product => (
+          <li key={product.id}>
+          <img src={product.image} alt="itens"/>
+          <strong>{product.title}</strong>
+          <span>{product.priceFormatted}</span>
+  
+          <button type="button">
+            <div>
+              <MdAddShoppingCart size={16} color="#FFF" /> 3            
+            </div>
+            <span>ADICIONAR AO CARRINHO</span>
+          </button>
+        </li>  
+        ))}   
+      </ProductList>
+    );
+  }
 }
