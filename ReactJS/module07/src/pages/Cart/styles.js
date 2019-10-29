@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { darken } from 'polished'
+import { darken } from 'polished';
 
 export const Container = styled.div`
   padding: 30px;
-  background: #FFF;
+  background: #fff;
   border-radius: 4px;
 
   footer {
@@ -14,7 +14,7 @@ export const Container = styled.div`
 
     button {
       background: #7159c1;
-      color: #FFF;
+      color: #fff;
       border: 0;
       border-radius: 4px;
       padding: 12px 20px;
@@ -23,7 +23,7 @@ export const Container = styled.div`
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.03, '#7159c1')}
+        background: ${darken(0.03, '#7159c1')};
       }
     }
   }
@@ -51,13 +51,12 @@ export const ProductTable = styled.table`
     color: #333;
     display: block;
   }
-  
+
   span {
     display: block;
     margin-top: 5px;
     font-size: 18px;
     font-weight: bold;
-
   }
 
   div {
@@ -86,7 +85,7 @@ export const Total = styled.div`
 
   span {
     color: #999;
-    font-weight: bold
+    font-weight: bold;
   }
 
   strong {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken } from 'polished'
+import { darken } from 'polished';
 
 export const ProductList = styled.ul`
   display: grid;
@@ -10,14 +10,13 @@ export const ProductList = styled.ul`
   li {
     display: flex;
     flex-direction: column;
-    background: #FFF;
+    background: #fff;
     border-radius: 4px;
     padding: 20px;
 
     img {
       align-self: center;
       max-width: 250px;
-
     }
 
     > strong {
@@ -35,7 +34,7 @@ export const ProductList = styled.ul`
 
     button {
       background: #7159c1;
-      color: #FFF;
+      color: #fff;
       border: 0;
       border-radius: 4px;
       overflow: hidden;
@@ -46,14 +45,14 @@ export const ProductList = styled.ul`
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.03, '#7159c1')}
+        background: ${darken(0.03, '#7159c1')};
       }
 
       div {
         display: flex;
-        align-items:center;
+        align-items: center;
         padding: 12px;
-        background: rgba(0,0,0,0.3);
+        background: rgba(0, 0, 0, 0.3);
 
         svg {
           margin-right: 5px;
