@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import { darken } from 'polished';
-import cart from '../../assets/cartMenor.png'
+import {darken} from 'polished';
+import cart from '../../assets/cartMenor.png';
 
 export const Container = styled.View`
   background: #191920;
@@ -48,10 +48,8 @@ export const ProductAmount = styled.View`
 `;
 
 export const Icon = styled.Image.attrs({
-  source: cart
-})`
-  
-`;
+  source: cart,
+})``;
 export const ProductAmountText = styled.Text`
   color: #fff;
   margin: 0px 4px 0px 10px;

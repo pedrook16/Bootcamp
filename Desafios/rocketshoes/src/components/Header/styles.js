@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
-import logo from '../../assets/logo.png' 
-import cart from '../../assets/cart.png' 
+import logo from '../../assets/logo.png';
+import cart from '../../assets/cart.png';
 
 export const Wrapper = styled.SafeAreaView`
   flex: 0;
@@ -25,8 +25,7 @@ export const Logo = styled.Image.attrs({
 export const Icon = styled.Image.attrs({
   source: cart,
   resizeMode: 'cover',
-})`
-`;
+})``;
 export const BasketContainer = styled.TouchableOpacity`
   height: 24px;
   width: 24px;

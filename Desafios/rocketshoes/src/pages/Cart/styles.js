@@ -93,6 +93,4 @@ export const OrderText = styled.Text`
   font-size: 14px;
   text-align: center;
 `;
-export const Icon = styled.Text`
-  
-`;
+export const Icon = styled.Text``;
