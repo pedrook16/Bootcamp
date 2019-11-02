@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import {
   Wrapper,
@@ -9,16 +10,23 @@ import {
   Icon,
 } from './styles';
 
-export default function Header({navigation}) {
+function Header({navigation, cartSize}) {
   return (
     <Wrapper>
       <Container>
         <Logo />
-        <BasketContainer>
+        <BasketContainer onPress={() => navigation.navigate('Cart')}>
           <Icon />
-          <ItemCount>2</ItemCount>
+          <ItemCount>{cartSize || 0}</ItemCount>
         </BasketContainer>
       </Container>
     </Wrapper>
   );
 }
+
+export default connect(
+  state => ({
+    cartSize: state.cart.length,
+  }),
+  null,
+)(Header);
