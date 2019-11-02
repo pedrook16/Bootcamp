@@ -1,24 +1,25 @@
-import {call, select, put, all, takeLatest} from 'redux-saga/effects';
+import { Alert } from 'react-native'
+import { call, put, all, select, takeLatest } from 'redux-saga/effects';
+import NavigationService from '../../../services/navigation';
 
 import api from '../../../services/api';
-import {formatPrice} from '../../../util/format';
-import {addToCartRequest, updateAmountSuccess} from './actions';
+import { formatPrice } from '../../../util/format';
 
-function* addToCart({id}) {
+import { addToCartSuccess, updateAmountSuccess } from './actions';
+
+function* addToCart({ id }) {
   const productExists = yield select(state =>
-    state.cart.find(p => p.id === id),
+    state.cart.find(product => product.id === id)
   );
 
   const stock = yield call(api.get, `/stock/${id}`);
 
   const stockAmount = stock.data.amount;
-
   const currentAmount = productExists ? productExists.amount : 0;
-
   const amount = currentAmount + 1;
 
   if (amount > stockAmount) {
-    console.log('Sem Estoque');
+    Alert.alert('Quantidade solicitada fora de estoque');
     return;
   }
 
@@ -32,18 +33,21 @@ function* addToCart({id}) {
       amount: 1,
       priceFormatted: formatPrice(response.data.price),
     };
+
+    yield put(addToCartSuccess(data));
+
+    NavigationService.navigate('Cart')
   }
 }
 
-function* updateAmount({id, amount}) {
+function* updateAmount({ id, amount }) {
   if (amount <= 0) return;
 
   const stock = yield call(api.get, `/stock/${id}`);
-
   const stockAmount = stock.data.amount;
 
   if (amount > stockAmount) {
-    console.log('Sem Estoque');
+    Alert.alert('Quantidade solicitada fora de estoque');
     return;
   }
 
